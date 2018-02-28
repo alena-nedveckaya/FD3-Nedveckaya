@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>ishop</title>
+    </head>
+    <body>
+        <div id="container"></div>
+
+        <script src="https://unpkg.com/react@15/dist/react.js"></script> 
+        <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script> 
+
+        <script src="ishop.js"></script>
+        <link rel="stylesheet" type="text/css" href="ishop.css"/>
+
+        <script>
+            var titleStr = 'Наличие товара на складе'
+            var itemsArr = [
+                {name:"Где живет птичка", price:"11.2 руб", url:"img/gde-jivet-ptichka.jpg", left:3, code:111},
+                {name:"Зимняя книга", price:"41 руб", url:"img/Zimnyaya-kniga.jpg", left:5, code:112},
+                {name:"Большой сюрприз", price:"22,4 руб", url:"img/bolshoi-surpriz.jpg", left:8, code:113},
+                {name:"Цвет и формы", price:"15,7 руб", url:"img/cveta-i-formy.jpg", left:2, code:114}
+            ];
+            ReactDOM.render(
+                React.createElement(itemsTable, {items:itemsArr, title:titleStr}),
+                document.getElementById('container')
+            )
+        </script>
+    </body>
+</html>

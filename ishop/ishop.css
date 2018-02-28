@@ -1,0 +1,20 @@
+#container{
+    margin-left: 20px;
+}
+.title{
+    margin-left: 15px
+}
+.itemsTable{
+    border: 1px solid black;
+    border-collapse: collapse
+}
+.itemTd{
+    border: 1px solid black;
+    min-width: 150px;
+    text-align: center;
+    padding: 3px
+}
+.itemImg{
+    width: 150px;
+    /* height: 50px; */
+}
