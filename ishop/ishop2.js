@@ -13,9 +13,9 @@ var itemsTable = React.createClass({
     },
 
     render: function(){
-        
-        var itemInformation = this.props.items.forEach (v => 
-            React.DOM.tr({key:v.code, className:'itemTr'},
+        var itemInformation = [];
+        this.props.items.forEach (v => {
+            var element = React.DOM.tr({key:v.code, className:'itemTr'},
                 React.DOM.td({className:'itemTd'}, v.name),
                 React.DOM.td({className:'itemTd'}, v.price),
                 React.DOM.td({className:'itemTd'},
@@ -23,7 +23,9 @@ var itemsTable = React.createClass({
                 ),
                 React.DOM.td({className:'itemTd'}, v.left)        
             
-            )   
+            )
+            itemInformation.push (element);
+            }  
         );
     
         return   React.DOM.div({className:"wrapper"},
