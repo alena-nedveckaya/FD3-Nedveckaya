@@ -1,0 +1,20 @@
+.filterBlock{
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.wordsBlock {
+    
+    border: 1px solid black;
+    height: 100px;
+    width: 250px;
+    overflow-y: scroll;
+}
+.inputString{
+    margin: 10px 0;
+}
+.inputWord{
+    width: 200px
+}
+.word{
+    margin-left: 3px;
+}
