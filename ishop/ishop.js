@@ -15,7 +15,24 @@ var itemsTable = React.createClass({
     render: function(){
         
         var itemInformation = this.props.items.map ((v) =>
-           React.DOM.tr({key:v.code, className:'itemTr'},
+           React.createElement (item, {itemInfo: v})
+        );
+    
+        return   React.DOM.div({className:"wrapper"},
+                React.DOM.h3({className:"title"}, this.props.title),
+                React.DOM.table({className:"itemsTable"}, itemInformation)
+            )
+            
+
+},
+
+});
+
+var item = React.createClass({
+    displayName: 'item',
+
+    render: function (){
+        React.DOM.tr({key:v.code, className:'itemTr'},
                 React.DOM.td({className:'itemTd'}, v.name),
                 React.DOM.td({className:'itemTd'}, v.price),
                 React.DOM.td({className:'itemTd'},
@@ -23,14 +40,5 @@ var itemsTable = React.createClass({
                 ),
                 React.DOM.td({className:'itemTd'}, v.left)        
             )
-        );
-    
-        return   React.DOM.div({className:"wrapper"},
-                React.DOM.h3({className:"title"}, this.props.title),
-                React.DOM.table({className:"itemsTable"}, React.DOM.tbody({}, itemInformation)
-            )
-            )
-
-},
-
+    }
 })
