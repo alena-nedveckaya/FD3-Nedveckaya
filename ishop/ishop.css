@@ -22,7 +22,8 @@
     background-color: moccasin;
 }
 .itemsTable{
-    width: 800px;
+    width: 60%;
+    display: inline-block;
     
 }
 .itemTd{
@@ -30,7 +31,7 @@
     height: 35px;
     border-top: 1px solid black; 
     border-left: 1px solid black;
-    width: 160px;
+    width: 20%;
     box-sizing: border-box;
     text-align: center;
     padding: 3px;
@@ -57,4 +58,26 @@
 }
 .btn_edit, .btn_delete:hover{
     cursor: pointer
+}
+.cardItem{
+    display: inline-block;
+    width: 35%;
+}
+.cardItem{
+    margin-left: 5px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+.cardItemHeader{
+    text-decoration: underline;
+    font-weight: bold;
+}
+.imgWrapper img{
+    margin: 3px;
+    height:  150px;
+    /* float: left; */
+}
+.cardItemTitle, .cardItemLeft, .cardItemDesription{
+    margin-top:5px
 }
