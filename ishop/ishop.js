@@ -282,7 +282,7 @@ var cardItemEdit = React.createClass({
 })
 
 var btn_cancel = React.createClass({
-    // как сюда предать состояние до изменения input??
+    // как сюда предать состояние itemInfo (хэш с информацией о продукте) до изменения input??
     displayName:'btn_cancel',
 
     getInitialState:function (){
