@@ -22,9 +22,13 @@
     background-color: moccasin;
 }
 .itemsTable{
-    width: 60%;
+    width: 100%;
     display: inline-block;
     
+}
+.itemsTableWrapper{
+    display: inline-block;
+    width: 60%;
 }
 .itemTd{
     display: inline-block;
@@ -36,7 +40,7 @@
     text-align: center;
     padding: 3px;
     cursor:pointer;
-    overflow: hidden;
+    /* overflow: hidden; */
     
 }
 .itemTd:last-child{
@@ -80,7 +84,12 @@
     /* float: left; */
 }
 .cardItemTitle, .cardItemLeft, .cardItemDesription{
-    margin-top:5px
+    margin-top:5px;
+    
+}
+.cardItemHeader{
+    width: 20%;
+    display: inline-block;
 }
 .error{
     display: inline-block;
@@ -88,4 +97,13 @@
     color:red;
     margin-left: 5px;
 
+}
+.newItem{
+    margin: 15px;
+}
+.btn_save, btn_cancel{
+    margin: 10px;
+}
+.cardItemDesription textarea{
+    width: 80%
 }
