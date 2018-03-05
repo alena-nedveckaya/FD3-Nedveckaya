@@ -35,7 +35,8 @@
     box-sizing: border-box;
     text-align: center;
     padding: 3px;
-    cursor:pointer
+    cursor:pointer;
+    overflow: hidden;
     
 }
 .itemTd:last-child{
@@ -80,4 +81,11 @@
 }
 .cardItemTitle, .cardItemLeft, .cardItemDesription{
     margin-top:5px
+}
+.error{
+    display: inline-block;
+    font-size: 12px;
+    color:red;
+    margin-left: 5px;
+
 }

@@ -26,8 +26,10 @@ var itemsTable = React.createClass({
         this.setState({items:newItemsArray})
     },
 
-    isClosedCardItem:function() {
-        this.setState({selectedItem:null, selectedItemCode:null, mode:null})
+    isClosedCardItem:function(items) {
+        
+        this.state.items.splice(this.state.items.indexOf(this.state.selectedItem),1, items)
+        this.setState({selectedItem:null, selectedItemCode:null, mode:null,})
     },
 
     cardItemEdit: function(selectedItemNumber){
@@ -35,11 +37,11 @@ var itemsTable = React.createClass({
     },
 
     isSavedChanges:function(chandedItemInfo){
-        console.log(222)
-        this.setState({items:chandedItemInfo, mode:null})
+        this.state.items.splice(this.state.items.indexOf(this.state.selectedItem),1, chandedItemInfo)
+        this.setState({mode:null})
     },
     render: function(){
-
+        console.log(this.state.items)
         var itemInformation = this.state.items.map ((v) =>
            React.createElement (item, {itemInfo: v, cbIsSelected:this.isSelected, 
                                         selectedItemCode:this.state.selectedItemCode, 
@@ -52,8 +54,8 @@ var itemsTable = React.createClass({
         return   React.DOM.div({className:"wrapper"},
                 React.DOM.h3({className:"title"}, this.props.title),
                 React.DOM.div({className:"itemsTable"}, itemInformation),
-                this.state.selectedItemCode ? React.createElement(cardItem, {itemInfo:this.state.selectedItem, mode:this.state.mode, cbIsClosedCardItem:this.isClosedCardItem}):null,
-                (this.state.mode == 'edit') ? React.createElement(cardItemEdit, {itemInfo:this.state.selectedItem, mode:this.state.mode, cbIsClosedCardItem:this.isClosedCardItem, cbIsSavedChanges:this.isSavedChanges}):null
+                this.state.selectedItemCode ? React.createElement(cardItem, {itemInfo:this.state.selectedItem,  mode:this.state.mode, cbIsClosedCardItem:this.isClosedCardItem}):null,
+                (this.state.mode == 'edit') ? React.createElement(cardItemEdit, {itemInfo:this.state.selectedItem, itemInfoOld:this.state.selectedItem, mode:this.state.mode, cbIsClosedCardItem:this.isClosedCardItem, cbIsSavedChanges:this.isSavedChanges}):null
             )
             
 
@@ -64,6 +66,9 @@ var itemsTable = React.createClass({
 var item = React.createClass({
     displayName: 'item',
 
+    getInitialState:function(){
+        return {}
+    },
     propTypes:{
         itemInfo:React.PropTypes.object,
         items:React.PropTypes.array,
@@ -78,6 +83,7 @@ var item = React.createClass({
     },
 
     render: function (){
+        // console.log(this.props.itemInfo)
         return  React.DOM.div({key:this.props.itemInfo.code, className:(this.props.itemInfo.code == this.props.selectedItemCode) ? 'itemTr selected' : 'itemTr'},
             React.DOM.label(null,
                     React.DOM.input({className:'hiddenRadio', 
@@ -85,15 +91,21 @@ var item = React.createClass({
                                     type:'radio', name:'item', 
                                     value:this.props.itemInfo.name,
                                     onClick:this.isselectedItemCode}),
-                    
-                        React.DOM.div({className:'itemTd'}, this.props.itemInfo.name),
+                        
+                            React.DOM.div({className:'itemTd'}, this.props.itemInfo.name),
+                          
                         React.DOM.div({className:'itemTd'}, this.props.itemInfo.price),
                         React.DOM.div({className:'itemTd'}, this.props.itemInfo.left),
                         React.DOM.div({className:'itemTd'},
-                            React.createElement(button_edit, {itemInfo:this.props.itemInfo, 
+                            React.createElement(button_edit, {itemInfoOld:this.props.itemInfo,
+                                                                itemInfo:this.props.itemInfo, 
                                                                 items:this.props.items, 
                                                                 cbCardItemEdit:this.props.cbCardItemEdit,
-                                                                mode:this.props.mode})),
+                                                                mode:this.props.mode,
+                                                                validName:this.state.validName,
+                                                                validPrice:this.state.validPrice,
+                                                                validDescription:this.state.validDescription,
+                                                            })),
                         React.DOM.div({className:'itemTd'},
                             React.createElement(button_delete, {items:this.props.items, 
                                                                 itemInfo:this.props.itemInfo, 
@@ -174,32 +186,93 @@ var button_edit = React.createClass({
 var cardItemEdit = React.createClass({
     displayName: 'cardItemEdit',
 
+
+
     propTypes:{
         itemInfo:React.PropTypes.object,
         cbIsClosedCardItem:React.PropTypes.func
     },
     getInitialState:function(){
-        return {itemInfo:this.props.itemInfo}
+        return {itemInfo:this.props.itemInfo, validName:true, validPrice:true, validDescription:true}
+    },
+    cbIsClosedCardItem:function(){
+
     },
 
     isChangedName:function(EO){
-        var newInfo = this.state.itemInfo.name = EO.target.value;
-        this.setState({itemInfo:newInfo});
-        console.log(this.props.itemInfo)
+        var oldName = this.state.itemInfo.name
+        this.state.itemInfo.name = EO.target.value;
+        //console.log(this.state.itemInfo.name.length)
+        if (this.state.itemInfo.name.length > 50){
+            this.setState({validName:false});//здесь я обновляю состояние каждый раз, чтобы проверка срабатывала сразу, 
+                                                // а не по нажатию кнопки Сохранить, но из-за этого почему-то изменяется itemInfo 
+                                                // у верхнего блока и у меня не получается его прежнее состояние вернуть
+            this.state.itemInfo.name = oldName
+        }
+        else{
+            this.setState({validName:true});
+            this.state.itemInfo.name = EO.target.value
+        }
+            
+
+        // this.setState({itemInfo:this.state.itemInfo});
     },
 
+    isChangedPrice:function(EO){
+        
+        var oldPrice = this.state.itemInfo.price
+        this.state.itemInfo.price = EO.target.value;
+        if (isNaN(this.state.itemInfo.price)){
+            this.setState.validPrice= false ;
+            this.state.itemInfo.price = oldPrice;
+            console.log(this.state.validPrice)
+        }
+        else{
+            this.setState.validPrice=true;
+            this.state.itemInfo.price = EO.target.value;
+        }
+        
+            
+        // this.setState({itemInfo:this.state.itemInfo});
+    },
+
+    isChangedTextarea:function(EO){
+        this.state.itemInfo.description = EO.target.value;
+        this.setState({itemInfo:this.state.description});
+    },
+
+
+
     render:function(){
+        console.log(this.props.itemInfoOld);
+        var oldItemArray = Object.assign({}, this.props.itemInfo);
+        // console.log(oldItemArray)
         return React.DOM.div({className:'cardItem'},
                     React.DOM.div({className:'imgWrapper'}, 
                         React.DOM.img({className:'img', src:this.props.itemInfo.url},)
                     ),
                     React.DOM.div({className:'cardItemInfo'},
-                        React.DOM.div({className:'cardItemTitle'}, React.DOM.span({className:'cardItemHeader'}, 'Название') , React.DOM.span(null, ': '), React.DOM.input({defaultValue:this.props.itemInfo.name, onChange:this.isChangedName}, )),
-                        React.DOM.div({className:'cardItemLeft'},  React.DOM.span({className:'cardItemHeader'},'Цена') , React.DOM.span(null, ': '), React.DOM.input({defaultValue:this.props.itemInfo.price}, )),
-                        React.DOM.div({className:'cardItemDesription'},  React.DOM.span({className:'cardItemHeader'}, 'Описание'), React.DOM.span(null, ': '), React.DOM.textarea({defaultValue:this.props.itemInfo.description},)),
+                        React.DOM.div({className:'cardItemTitle'}, 
+                            React.DOM.span({className:'cardItemHeader'}, 'Название') , 
+                            React.DOM.span(null, ': '), 
+                            React.DOM.input({defaultValue:this.props.itemInfo.name, onChange:this.isChangedName}, ),
+                            (!this.state.validName)?
+                                React.DOM.div({className:'error'}, 'Слишком длинное название'):null
+                    ), 
+                        React.DOM.div({className:'cardItemLeft'},  
+                            React.DOM.span({className:'cardItemHeader'},'Цена') , 
+                            React.DOM.span(null, ': '), 
+                            React.DOM.input({defaultValue:this.props.itemInfo.price, onChange:this.isChangedPrice}, ),
+                            (!this.state.validPrice)?
+                                React.DOM.div({className:'error'}, 'Введите число'):null
+                        ),
+                        React.DOM.div({className:'cardItemDesription'},  
+                            React.DOM.span({className:'cardItemHeader'}, 'Описание'), 
+                            React.DOM.span(null, ': '), 
+                            React.DOM.textarea({defaultValue:this.props.itemInfo.description, onChange:this.isChangedTextarea},)),
                         React.DOM.div({className:'btns_save_cancel'},
-                            React.createElement(btn_save, {itemInfo:this.props.itemInfo, cbIsSavedChanges:this.props.cbIsSavedChanges}),
-                            React.createElement(btn_cancel, {cbIsClosedCardItem:this.props.cbIsClosedCardItem})
+                            React.createElement(btn_save, {itemInfo:this.state.itemInfo,  cbIsSavedChanges:this.props.cbIsSavedChanges, validName:this.state.validName, validPrice:this.state.validPrice}),
+                            React.createElement(btn_cancel, {cbIsClosedCardItem:this.props.cbIsClosedCardItem, itemInfo:this.props.itemInfo,})
                             
                         )
                     )   
@@ -209,15 +282,20 @@ var cardItemEdit = React.createClass({
 })
 
 var btn_cancel = React.createClass({
-
+    // как сюда предать состояние до изменения input??
     displayName:'btn_cancel',
+
+    getInitialState:function (){
+        return {itemInfo:this.props.itemInfo}
+    },
 
     propTypes:{
         cbIsClosedCardItem:React.PropTypes.func
     },
 
     isClosedCardItem: function(){
-        this.props.cbIsClosedCardItem();
+        // this.setState( (prevState, props) => { return {itemInfo:prevState}; } )
+        this.props.cbIsClosedCardItem(this.state.itemInfo)
     },
 
     render: function(){
@@ -230,12 +308,11 @@ var btn_save = React.createClass({
     displayName:'btn_save',
 
     isSavedChanges:function(){
-        console.log(this.props.itemInfo)
         this.props.cbIsSavedChanges(this.props.itemInfo)
     },
 
     render:function(){
         // console.log(this.props.itemInfo.name)
-        return React.DOM.button({className:'btn_save', onClick:this.isSavedChanges}, 'Сохранить')
+        return React.DOM.button({className:'btn_save', onClick:this.isSavedChanges, disabled: (!this.props.validName || !this.props.validPrice)}, 'Сохранить')
     }
 })
