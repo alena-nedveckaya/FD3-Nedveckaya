@@ -1,0 +1,38 @@
+.itemTd{
+    display: inline-block;
+    height: 35px;
+    border-top: 1px solid black; 
+    border-left: 1px solid black;
+    width: 20%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 3px;
+    cursor:pointer;
+    /* overflow: hidden; */
+    
+}
+.itemTd:last-child{
+    border-right: 1px solid black;
+}
+.itemTr:last-child .itemTd{
+    border-bottom: 1px solid black;
+}
+
+.itemImg{
+    vertical-align: text-top;
+    /* width: 150px; */
+    height: 140px;
+}
+.hiddenRadio{
+    display: none
+}
+.btn_edit, .btn_delete{
+    vertical-align: sub;
+}
+.btn_edit, .btn_delete:hover{
+    cursor: pointer
+}
+
+.itemTr.selected{
+    background-color: moccasin;
+}

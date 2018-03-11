@@ -1,0 +1,30 @@
+.cardItem{
+    display: inline-block;
+    width: 35%;
+}
+.cardItem{
+    margin-left: 5px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+.cardItemHeader{
+    text-decoration: underline;
+    font-weight: bold;
+}
+.imgWrapper img{
+    margin: 3px;
+    height:  150px;
+    /* float: left; */
+}
+.cardItemTitle, .cardItemLeft, .cardItemDesription{
+    margin-top:5px;
+    
+}
+.cardItemHeader{
+    width: 20%;
+    display: inline-block;
+}
+.cardItemDesription textarea{
+    width: 80%
+}

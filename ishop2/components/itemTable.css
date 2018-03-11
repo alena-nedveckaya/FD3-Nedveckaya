@@ -1,0 +1,12 @@
+.itemsTable{
+    width: 100%;
+    display: inline-block;
+    
+}
+.itemsTableWrapper{
+    display: inline-block;
+    width: 60%;
+}
+button:hover{
+    cursor:pointer;
+}
