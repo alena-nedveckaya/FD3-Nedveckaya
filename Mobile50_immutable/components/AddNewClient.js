@@ -22,7 +22,7 @@ class AddNewClient extends React.PureComponent{
     }
     saveChanges = (EO) => {
         let id = Math.floor(Math.random()*(1000)) + 1000;
-        clientsEvents.emit('saveChanges', this.state.familyName, this.state.name, this.state.fatherName, this.state.balance,id);
+        clientsEvents.emit('saveChangesNewClient', this.state.familyName, this.state.name, this.state.fatherName, this.state.balance,id);
     }
     render(){
         console.log("addNewClient render");
