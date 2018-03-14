@@ -31,34 +31,34 @@ class MobileCompany extends React.PureComponent {
   };
 
   componentWillMount = () =>{
-    clientsEvents.addListener('saveChanges', this.saveChanges)
-    clientsEvents.addListener('openEditForm', this.openEditForm)
+    clientsEvents.addListener('saveChanges', this.saveChanges);
+    clientsEvents.addListener('openEditForm', this.openEditForm);
   }
 
   componentWillUnmount = () =>{
-    clientsEvents.removeListener('saveChanges', this.saveChanges)
-    clientsEvents.removeListener('openEditForm', this.openEditForm)
+    clientsEvents.removeListener('saveChanges', this.saveChanges);
+    clientsEvents.removeListener('openEditForm', this.openEditForm);
   }
 
   newClientForm = (newClient) =>{
     if (newClient){
       this.setState({mode:1})
     }
-  }  
+  } ;
 
   openEditForm = (clientInfo)=> {
-    console.log('openEditForm')
+    console.log('openEditForm');
     console.log(clientInfo);
-    this.state.selectedClient=null;
-    this.setState({mode:2, selectedClient:clientInfo})
+    // this.state.selectedClient=null;
+    this.setState({mode:2, selectedClient:clientInfo});
     
-  }
+  };
 
   saveChanges = (newFamilyName, newName, newFatherName, newBalance, id) => {
-    let newClientsA = [...this.state.clients, {id:id, fio:newFamilyName+' '+newName+' '+newFatherName, balance:newBalance}]
-    console.log(newClientsA)
+    let newClientsA = [...this.state.clients, {id:id, fio:newFamilyName+' '+newName+' '+newFatherName, balance:newBalance}];
+    console.log(newClientsA);
     this.setState({clients:newClientsA, mode:null})
-  }
+  };
   setName1 = () => {
     this.setState({name:'МТС'});
   };
@@ -108,9 +108,9 @@ class MobileCompany extends React.PureComponent {
   render() {
 
     console.log("MobileCompany render");
-    console.log(this.state.selectedClient)
+    console.log(this.state.selectedClient);
 
-    var clientsCode=this.state.clients.map( client =>
+    let clientsCode=this.state.clients.map( client =>
       <MobileClient key={client.id} info={client}  />
     );
 

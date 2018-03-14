@@ -27,22 +27,30 @@ class AddNewClient extends React.PureComponent{
     render(){
         console.log("addNewClient render");
         return <div className='newClient'>
-                    <label>
-                    Фамилия
-                    <input type='text' onChange = {this.changeFamilyName}/>
-                    </label>
-                    <label>
-                    Имя
-                    <input type='text' onChange = {this.changeName}/>
-                    </label>
-                    <label>
-                    Отчество
-                    <input type='text' onChange = {this.changeFatherName}/>
-                    </label>
-                    <label>
-                    Баланс
-                    <input type='text' onChange = {this.changeBalance}/>
-                    </label>
+                    <div>
+                        <label>
+                            Фамилия
+                            <input type='text' onChange = {this.changeFamilyName}/>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                        Имя
+                        <input type='text' onChange = {this.changeName}/>
+                        </label>
+                    </div>
+                    <div>
+                            <label>
+                            Отчество
+                            <input type='text' onChange = {this.changeFatherName}/>
+                            </label>
+                    </div>
+                    <div>
+                            <label>
+                            Баланс
+                            <input type='text' onChange = {this.changeBalance}/>
+                            </label>
+                    </div>
                     <button onClick={this.saveChanges}>Сохранить</button>
                     <button onClick={this.cancelChanges}>Отмена</button>
                 </div>

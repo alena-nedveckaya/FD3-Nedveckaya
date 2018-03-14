@@ -16,7 +16,8 @@ class EditForm extends React.PureComponent{
 
     componentWillReceiveProps = (newProps) => {
         console.log("EditForm componentWillReceiveProps");
-       this.setState({client: newProps.client, newName:newProps.client.fio})
+
+        this.setState({client: newProps.client, newName:newProps.client.fio})
 
     };
       changeFIO = (EO) =>{
