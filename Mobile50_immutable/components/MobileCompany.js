@@ -33,12 +33,13 @@ class MobileCompany extends React.PureComponent {
   componentWillMount = () =>{
     clientsEvents.addListener('saveChanges', this.saveChanges);
     clientsEvents.addListener('openEditForm', this.openEditForm);
-  }
+    clientsEvents.addListener('deleteClient', this.deleteClient);
+  };
 
   componentWillUnmount = () =>{
     clientsEvents.removeListener('saveChanges', this.saveChanges);
-    clientsEvents.removeListener('openEditForm', this.openEditForm);
-  }
+    clientsEvents.removeListener('deleteClient', this.deleteClient);
+  };
 
   newClientForm = (newClient) =>{
     if (newClient){
@@ -53,6 +54,14 @@ class MobileCompany extends React.PureComponent {
     this.setState({mode:2, selectedClient:clientInfo});
     
   };
+
+  deleteClient = (isDeleteClient) =>{
+      let clients = [...this.state.clients];
+      let indexDeletedClient = clients.indexOf(isDeleteClient);
+      clients.splice(indexDeletedClient,1);
+      this.setState({clients:clients});
+
+  }
 
   saveChanges = (newFamilyName, newName, newFatherName, newBalance, id) => {
     let newClientsA = [...this.state.clients, {id:id, fio:newFamilyName+' '+newName+' '+newFatherName, balance:newBalance}];
