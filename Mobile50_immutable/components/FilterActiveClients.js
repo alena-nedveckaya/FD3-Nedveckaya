@@ -28,11 +28,11 @@ class FilterActiveClients extends React.PureComponent {
         );
         clientsEvents.emit('FilterClients', filterClients)
 
-    }
+    };
 
     render (){
-        console.log('FilterActiveClients render')
-        console.log(this.state.clients)
+        console.log('FilterActiveClients render');
+        console.log(this.state.clients);
         return <button onClick={this.filterActive}>Показать активных клиентов</button>
     }
 }

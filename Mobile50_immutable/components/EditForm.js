@@ -18,12 +18,10 @@ class EditForm extends React.PureComponent{
 
     componentWillReceiveProps = (newProps) => {
         console.log("EditForm componentWillReceiveProps");
-
         this.setState({client: newProps.client, newName:newProps.client.fio, newBalance:this.props.client.balance})
 
     };
       changeFIO = (EO) =>{
-
           this.setState({newName:EO.target.value});
           console.log(this.state.newName)
       };
@@ -42,29 +40,32 @@ class EditForm extends React.PureComponent{
 
     render(){
         console.log('EditForm render');
-        console.log(this.state.newName, this.state.client, this.props.client);
-        return  <div>
-                    <div>
-                        <label>
-                            ФИО
-
-                            <input value={this.state.newName} onChange={this.changeFIO}/>
-                        </label>
-                    </div>
-
-                    <div>
-                        <label>
-                            Баланс
-                            <input value={this.state.newBalance} onChange={this.changeBalance}/>
-                        </label>
-                    </div>
-
-                    <button onClick={this.saveChanges}>Сохранить</button>
-                    <button onClick={this.cancelChanges}>Отмена</button>
-
-                </div>
+        // console.log(this.state.newName, this.state.client, this.props.client);
+        return  <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label>ФИО</label>
+                            </td>
+                            <td>
+                                <input value={this.state.newName} onChange={this.changeFIO}/>
+                            </td>
+                        </tr>
+                       <tr>
+                            <td>
+                                <label>Баланс</label>
+                            </td>
+                            <td>
+                                <input value={this.state.newBalance} onChange={this.changeBalance}/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><button onClick={this.saveChanges}>Сохранить</button></td>
+                            <td><button onClick={this.cancelChanges}>Отмена</button></td>
+                        </tr>
+                    </tbody>
+                </table>
     }
-
 }
 
 export default EditForm;

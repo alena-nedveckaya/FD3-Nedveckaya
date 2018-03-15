@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 import './MobileClient.css';
 import ButtonEdit from './ButtonEdit.js';
-import ButtonDelete from './ButtonDelete'
+// import ButtonDelete from './ButtonDelete'
+import {clientsEvents} from "./events";
 
 class MobileClient extends React.PureComponent {
 
@@ -24,6 +25,10 @@ class MobileClient extends React.PureComponent {
     this.setState({info:newProps.info});
   };
 
+    deleteClient = (EO) =>{
+        clientsEvents.emit('deleteClient', this.props.info)
+    };
+
   render() {
 
     console.log("MobileClient id="+this.state.info.id+" render");
@@ -32,7 +37,7 @@ class MobileClient extends React.PureComponent {
           <tr>
             <td className='MobileClientBalance'>{this.state.info.fio}</td>
             <td><ButtonEdit info={this.state.info}/></td>
-              <td><ButtonDelete info={this.state.info}/></td>
+            <td><button onClick={this.deleteClient}>Удалить</button></td>
             <td className='MobileClientFIO'>{this.state.info.balance}</td>
           </tr>
     );

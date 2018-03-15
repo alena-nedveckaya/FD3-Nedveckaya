@@ -1,0 +1,6 @@
+.newClient table{
+    margin: 10px;
+}
+.newClient td:first-child{
+    width: 30%;
+}
