@@ -2,21 +2,15 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import   MyComponent from './MyComponent';
 
-import VotesBlock from './components/VotesBlock';
 
-let questionText='Как вы относитесь к программированию?';
-let answersArr=require('./answers.json');
-let defaultFreeAnswerText="???";
-let colorArr = ['red', 'yellow', 'green', 'blue']
+let text='JS относится к языкам со слабой типизацией. <br/> Это означает, что типы данных у значений переменных<br> могут изменться';
+
 
 ReactDOM.render(
-  <VotesBlock 
-    question={questionText}
-    answers={answersArr}
-    deffreeanswertext={defaultFreeAnswerText}
-    startWorkMode={1}
-    colorArr = {colorArr}
+  <MyComponent
+    text={text}
   />
   , document.getElementById('container') 
 );
